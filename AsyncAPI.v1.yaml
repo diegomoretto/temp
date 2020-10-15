@@ -1,0 +1,1265 @@
+asyncapi: 2.0.0
+info:
+  title: SLCSWrapper
+  version: '1.0.0'
+  description: |
+    SLCS Test
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+ development:
+    url: 'arn:aws:sns:eu-west-1:195548563372:dev-SlcsEvent'
+    description: 'Development/test account for message publishing'
+    protocol: 'sns'
+    protocolVersion: 'latest'
+   
+ production:
+    url: 'arn:aws:sns:eu-west-1:195548563372:prod-SlcsEvent'
+    description: 'Prod account for message publishing'
+    protocol: 'sns'
+    protocolVersion: 'latest'
+    
+defaultContentType: application/json
+
+channels:
+  slcsEvent:
+    description: The topic on which events SLCS are published 
+    publish:        
+      message:
+        oneOf:
+          - $ref: '#/components/messages/canFulfilAcceptedEvent'
+          - $ref: '#/components/messages/canFulfilFailedEvent'
+          - $ref: '#/components/messages/canFulfilSuccessEvent'
+          - $ref: '#/components/messages/canRegradeAcceptedEvent'
+          - $ref: '#/components/messages/canRegradeFailedEvent'
+          - $ref: '#/components/messages/canRegradeSuccessEvent'
+          - $ref: '#/components/messages/convertAcceptedEvent'
+          - $ref: '#/components/messages/convertFailedEvent'
+          - $ref: '#/components/messages/convertRequestEvent'
+          - $ref: '#/components/messages/convertSuccessEvent'
+          - $ref: '#/components/messages/effectivePeriodAcceptedEvent'
+          - $ref: '#/components/messages/effectivePeriodFailedEvent'
+          - $ref: '#/components/messages/effectivePeriodRequestEvent'
+          - $ref: '#/components/messages/effectivePeriodSuccessEvent'
+          - $ref: '#/components/messages/fulfilAcceptedEvent'
+          - $ref: '#/components/messages/fulfilFailedEvent'
+          - $ref: '#/components/messages/fulfilRequestEvent'
+          - $ref: '#/components/messages/fulfilSuccessEvent'
+          - $ref: '#/components/messages/reactivateAcceptedEvent'
+          - $ref: '#/components/messages/reactivateFailedEvent'
+          - $ref: '#/components/messages/reactivateRequestEvent'
+          - $ref: '#/components/messages/reactivateSuccessEvent'
+          - $ref: '#/components/messages/regradeAcceptedEvent'
+          - $ref: '#/components/messages/regradeFailedEvent'
+          - $ref: '#/components/messages/regradeRequestEvent'
+          - $ref: '#/components/messages/regradeSuccessEvent'
+          - $ref: '#/components/messages/suspendAcceptedEvent'
+          - $ref: '#/components/messages/suspendFailedEvent'
+          - $ref: '#/components/messages/suspendRequestEvent'
+
+
+
+components:
+  messages:
+    #####
+    ## Can Fulfil COMPOSITE MODELS
+    canFulfilAcceptedEvent:
+      name: canFulfilAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canFulfilAcceptedEventData'
+    canFulfilFailedEvent:
+      name: canFulfilFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canFulfilFailedEventData'
+    canFulfilSuccessEvent:
+      name: canFulfilSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canFulfilSuccessEventData'
+    #####
+    ## Can Regrade COMPOSITE MODELS
+    canRegradeAcceptedEvent:
+      name: canRegradeAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canRegradeAcceptedEventData'
+    canRegradeFailedEvent:
+      name: canRegradeFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canRegradeFailedEventData'
+    canRegradeSuccessEvent:
+      name: canRegradeSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/canRegradeSuccessEventData'
+    #####
+    ## Convert COMPOSITE MODELS
+    convertAcceptedEvent:
+      name: convertAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/convertAcceptedEventData'
+    convertFailedEvent:
+      name: convertFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/convertFailedEventData'
+    convertRequestEvent:
+      name: convertRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/convertRequestEventData'
+    convertSuccessEvent:
+      name: convertSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/convertSuccessEventData'
+    #####
+    ## Effective Period COMPOSITE MODELS
+    effectivePeriodAcceptedEvent:
+      name: effectivePeriodAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/effectivePeriodAcceptedEventData'
+    effectivePeriodFailedEvent:
+      name: effectivePeriodFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/effectivePeriodFailedEventData'
+    effectivePeriodRequestEvent:
+      name: effectivePeriodRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/effectivePeriodRequestEventData'
+    effectivePeriodSuccessEvent:
+      name: effectivePeriodSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/effectivePeriodSuccessEventData' 
+    #####
+    ## fulfil COMPOSITE MODELS       
+    fulfilAcceptedEvent:
+      name: fulfilAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/fulfilAcceptedEventData'
+    fulfilFailedEvent:
+      name: fulfilFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/fulfilFailedEventData'
+    fulfilRequestEvent:
+      name: fulfilRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/fulfilRequestEventData'
+    fulfilSuccessEvent:
+      name: fulfilSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/fulfilSuccessEventData' 
+    #####
+    ## Reactivate COMPOSITE MODELS
+    reactivateAcceptedEvent:
+      name: reactivateAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/reactivateAcceptedEventData'
+    reactivateFailedEvent:
+      name: reactivateFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/reactivateFailedEventData'
+    reactivateRequestEvent:
+      name: reactivateRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/reactivateRequestEventData'
+    reactivateSuccessEvent:
+      name: reactivateSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/reactivateSuccessEventData' 
+    #####
+    ## regrade COMPOSITE MODELS
+    regradeAcceptedEvent:
+      name: regradeAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/regradeAcceptedEventData'
+    regradeFailedEvent:
+      name: regradeFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/regradeFailedEventData'
+    regradeRequestEvent:
+      name: regradeRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/regradeRequestEventData'
+    regradeSuccessEvent:
+      name: regradeSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/regradeSuccessEventData' 
+    #####
+    ## suspend COMPOSITE MODELS
+    suspendAcceptedEvent:
+      name: suspendAcceptedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/suspendAcceptedEventData'
+    suspendFailedEvent:
+      name: suspendFailedEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/suspendFailedEventData'
+    suspendRequestEvent:
+      name: suspendRequestEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/suspendRequestEventData'
+    suspendSuccessEvent:
+      name: suspendSuccessEvent
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/models/requestModelBase'
+          - $ref: '#/components/schemas/models/suspendSuccessEventData' 
+#############################################################################################
+############################################################################################# 
+#############################################################################################
+#############################################################################################
+
+  schemas:
+  
+#############################################################################################
+## Models:
+##  these are the base models which are used in the above composite models
+##
+############################################################################################# 
+    models:
+      ######
+      ## this is the base model of all payloads
+      requestModelBase:
+        type: object
+        properties:
+          specversion:
+            type: string
+          id:
+            type: string
+          source:
+            type: string
+          datacontenttype:
+            type: string
+          time:
+            type: string
+          'type':
+            type: string
+        example:
+          specversion: "1.0"
+          id: "8ce4a517-a7cf-49e5-8095-14b0183c3ccc"
+          source: "slcswrapper"
+          datacontenttype: "application/json"
+          time: "2020-07-01T12:53:58.295UTC"
+          'type': 'com.sage.slcs.event'
+      #####
+      ## Can Fulfil Events
+      canFulfilAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanFulfilAcceptedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      canFulfilFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanFulfilFailedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      canFulfilSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanFulfilSuccessEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      #####
+      ## Can Regrade Events
+      canRegradeAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanRegradeAcceptedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      canRegradeFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanRegradeFailedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a' 
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              errors:
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+      canRegradeSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              correlationId:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.CanRegradeSuccessEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      #####
+      ## Convert Events
+      convertAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ConvertAcceptedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      convertFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ConvertFailedEvent'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+      convertRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              requestPayload:
+                $ref: '#/components/schemas/requests/convert'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ConvertRequestEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              requestPayload:
+                start: "2020-01-01"
+                end: "2021-01-01"
+      convertSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              entitlementId:
+                type: string
+              launchUrl: 
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ConvertSuccessEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+      #####
+      ## Effective Period Events
+      effectivePeriodAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.EffectivePeriodAcceptedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      effectivePeriodFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.EffectivePeriodFailedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"   
+      effectivePeriodRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              requestPayload:
+                type: object
+                $ref: '#/components/schemas/requests/effectivePeriod'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.EffectivePeriodRequestEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              requestPayload:
+                notBefore: "2020-12-01"
+                notAfter: "2021-12-01"
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"   
+      effectivePeriodSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string   
+              activityKey:
+                type: string      
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.EffectivePeriodSuccessEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"   
+      #####
+      ## Fulfil Events             
+      fulfilAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.FulfilAcceptedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      fulfilFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              activityKey:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.FulfilFailedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      fulfilRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              activityKey:
+                type: string
+              requestPayload:
+                type: object
+                $ref: '#/components/schemas/requests/fulfil'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.FulfilRequestEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              requestPayload:
+                clientRef: "2f42f8b3-982e-4401-98dc-5cdab82b365a"
+                effectivePeriod:
+                  notBefore: "2020-12-01"
+                  notAfter: "2021-12-01"
+                products:
+                  - sku: "S1GBSTARTB"
+                    tier:
+                      attribute: "string"
+                      quantity: 1
+                    isTrial: false
+                    trialLength: 0
+                enitledAccount:
+                  id: "0010E00000oB6wvQAC"
+                  crm: "string"
+                customerContact:
+                  id: "0011E00000oB6wvQAD"
+                  crm: "string"
+                managingAccount:
+                  id: "0009A00000oB6wvQAW"
+                  crm: "string"
+                productUsers:
+                  - id: "0010F00000oC6wvFAC"
+                channelPartner: "string"
+                partner:
+                  account:
+                    id: "0010B00000oX6wvAEC"
+                    crm: "string"
+                  contact:
+                    id: "0010A00000oF6wvXAC"
+                    crm: "string"
+      fulfilSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              entitlementId:
+                type: string
+              launchUrl: 
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.FulfilSuccessEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              entitlementId: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              launchUrl: 'https://pre-central.uk.sageone.biz/service/access?service=SageOne-Start-GB'
+      #####
+      ## Reactivate Events  
+      reactivateAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              activityKey:
+                type: string
+              subscriptionId:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ReactivateAcceptedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"  
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+      reactivateFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              activityKey:
+                type: string
+              subscriptionId:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ReactivateFailedEvent'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+      reactivateRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ReactivateRequestEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"   
+      reactivateSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.ReactivateSuccessEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"   
+      #####
+      ## Regrade Events  
+      regradeAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.RegradeAcceptedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      regradeFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string 
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.RegradeFailedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+      regradeRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string 
+              requestPayload:
+                type: object
+                $ref: '#/components/schemas/requests/regrade'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.RegradeRequestEvent'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              requestPayload:
+                subscriptionId: "2f42f8b3-982e-4401-98dc-5cdab82b365a"
+                effectivePeriod:
+                  notBefore: "2020-12-01"
+                  notAfter: "2021-12-01"
+                products:
+                  - sku: "S1GBSTARTB"
+                    tier:
+                      attribute: "string"
+                      quantity: 1
+                    isTrial: false
+                    trialLength: 0
+                enitledAccount:
+                  id: "0010E00000oB6wvQAC"
+                  crm: "string"
+                customerContact:
+                  id: "0011E00000oB6wvQAD"
+                  crm: "string"
+                managingAccount:
+                  id: "0009A00000oB6wvQAW"
+                  crm: "string"
+                productUsers:
+                  - id: "0010F00000oC6wvFAC"
+                channelPartner: "string"
+                partner:
+                  account:
+                    id: "0010B00000oX6wvAEC"
+                    crm: "string"
+                  contact:
+                    id: "0010A00000oF6wvXAC"
+                    crm: "string"
+      regradeSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+              entitlementId:
+                type: string
+            example:
+              type: 'com.sage.slcswrapper.events.RegradeSuccessEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              entitlementId: '2c42f8b3-462d-8411-98dc-5cdab82b345c'
+      #####
+      ## Suspend Events
+      suspendAcceptedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.SuspendAcceptedEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      suspendFailedEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/requestObj/error'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.SuspendFailedEvent' 
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+              errors: 
+               - code: "Validation.error"
+                 source: "slcswrapper"
+                 data: "This is generic data"
+                 description: "This is a generic description"
+      suspendRequestEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string                
+              requestPayload:
+                type: object
+                $ref: '#/components/schemas/requests/suspend'
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.SuspendRequestEvent'
+              subscriptionId: '2f42f8b3-982e-4401-98dc-5cdab82b365a'
+              activityKey: 'bc15f0d2-cf14-4869-a165-f0b062e5a8c4'
+              requestPayload:
+                code: "string"
+                description: "string"
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+      suspendSuccessEventData:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                type: string
+              correlationId:
+                type: string
+              subscriptionId:
+                type: string
+              activityKey:
+                type: string                
+              metaData:
+                $ref: '#/components/schemas/requestObj/metaData'
+            example:
+              type: 'com.sage.slcswrapper.events.SuspendSuccessEvent'
+              correlationId: "accdbd7b-d51c-45d0-bbc0-2f15efe5c171"
+#############################################################################################
+## Requests contains the models for the request objects. These are based upon models within
+## the code base
+##
+#############################################################################################
+                     
+    requests:
+      fulfil:
+        type: object
+        properties:
+          clientRef: 
+            type: string
+          effectivePeriod:
+            type: object
+            properties:
+              notBefore:
+                type: string
+                format: date
+              notAfter:
+                type: string
+                format: date
+          products:
+            type: array
+            items: 
+              $ref: '#/components/schemas/requestObj/products'
+          entitledAccount:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          customerContact:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          managingAccount:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          productUsers:
+            type: array
+            items: 
+              $ref: '#/components/schemas/requestObj/userIdentity'
+          channelPartner:
+            type: string
+          partner:
+            $ref: '#/components/schemas/requestObj/partner'
+            
+      convert:
+        type: object
+        properties:
+          start:
+            type: string
+            format: date
+          end:
+            type: string
+            format: date
+            
+      effectivePeriod:
+        type: object
+        properties:
+          start:
+            type: string
+            format: date
+          end:
+            type: string
+            format: date
+            
+      suspend:
+        type: object
+        properties:
+          code:
+            type: string
+          description:
+            type: string   
+            
+      regrade:
+        type: object
+        properties:
+          subscriptionId: 
+            type: string
+          effectivePeriod:
+            type: object
+            properties:
+              notBefore:
+                type: string
+                format: date
+              notAfter:
+                type: string
+                format: date
+          products:
+            type: array
+            items: 
+              $ref: '#/components/schemas/requestObj/products'
+          entitledAccount:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          customerContact:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          managingAccount:
+              $ref: '#/components/schemas/requestObj/crmIdentifier'
+          productUsers:
+            type: array
+            items: 
+              $ref: '#/components/schemas/requestObj/userIdentity'
+          channelPartner:
+            type: string
+          partner:
+            $ref: '#/components/schemas/requestObj/partner'
+            
+#############################################################################################
+## RequestObj contains models for when the actual request Requires a model. This allows 
+## a greater reusablity and less replication of information
+#############################################################################################
+    requestObj:
+      error:
+        type: object
+        properties:
+          code:
+            type: string
+          source:
+            type: string
+            default: "slscwrapper"
+          data:
+            type: string
+          description: 
+            type: string
+            
+      metaData:
+        type: object
+        properties:
+          receiptHandle:
+            type: string
+            
+      tier:
+         type: object
+         properties:
+           attribute:
+             type: string
+           quantity:
+             type: integer
+      products:
+         type: object
+         properties:
+           sku:
+             type: string
+           tier:
+             $ref: '#/components/schemas/requestObj/tier'
+           isTrial:
+             type: boolean
+           trialLength:
+             type: integer
+      crmIdentifier:
+         type: object
+         properties:
+           id:
+             type: string
+           crm:
+             type: string
+      userIdentity:
+         type: object
+         properties:
+           id:
+             type: string
+           identityProvider:
+             type: string
+      partner:
+        type: object
+        properties:
+          account:
+            $ref: '#/components/schemas/requestObj/crmIdentifier'
+          contact:
+            $ref: '#/components/schemas/requestObj/crmIdentifier'
+          
+  messageTraits:
+    commonHeaders: #headers which can be added to messages/payloads when taking information in or returning these
+      headers:
+        type: object
+        properties:
+          Authorization:
+            type: string
+          X-ActivityId:
+            type: string
+          prefer:
+            type: string
